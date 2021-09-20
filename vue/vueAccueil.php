@@ -16,7 +16,7 @@
 /** @var Photo  $laPhotoPrincipale */
 /** @var TypeCuisine  $unTC */
 ?>
-<div id="accroche">Decouvrez les meilleurs restaurants avec resto.fr</div>
+<div id="accroche">Decouvrez les meilleurs restaurants avec r3st0.fr</div>
 <h1>Top 4 des meilleurs restaurants</h1>
 
 <?php
