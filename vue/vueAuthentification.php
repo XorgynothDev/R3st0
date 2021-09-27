@@ -7,7 +7,7 @@
 
 </form>
 <br />
-<a href="./?action=inscription">Inscription</a>
+<a href="./index.php?action=inscription">Inscription</a>
 
 <hr>
 Utilisateur de test : <br />

@@ -26,7 +26,7 @@ function login(string $mailU, string $mdpU): void {
         $idU = $util->getIdU();
 
         // Si le mot de passe saisi correspond au mot de passe "haché" de la BDD
-        if (trim($mdpBD) == trim(crypt($mdpU, $mdpBD))) {
+        if (password_verify($mdpU, $mdpBD)) {
             // le mot de passe est celui de l'utilisateur dans la base de donnees
             $_SESSION["idU"] = $idU;        // la clef est idU désormais
             $_SESSION["mailU"] = $mailU;

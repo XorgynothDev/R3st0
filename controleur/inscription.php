@@ -35,6 +35,8 @@ if (isset($_POST["mailU"]) && isset($_POST["mdpU"]) && isset($_POST["pseudoU"]))
         $mdpU = $_POST["mdpU"];
         $pseudoU = $_POST["pseudoU"];
 
+        $mdpU = password_hash($mdpU, PASSWORD_DEFAULT);
+
         // Enregistrement des donnees dans la base de données
         $user = new Utilisateur(0, $mailU, $mdpU, $pseudoU);
         // Insertion en 2 temps : 

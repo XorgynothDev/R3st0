@@ -34,7 +34,7 @@ if (!isset($_POST["mailU"]) || !isset($_POST["mdpU"])){
     $mdpU=$_POST["mdpU"];
     
     // on tente l'authentification
-    login($mailU,$mdpU);
+    login($mailU, $mdpU);
 
     // Si l'utilisateur est connecté (authentification réussie)
     if (!isLoggedOn()){ 
@@ -46,7 +46,7 @@ if (!isset($_POST["mailU"]) || !isset($_POST["mdpU"])){
         require_once "$racine/vue/pied.html.php";
     } else{
         // on affiche le profil
-        header('Location: ./?action=profil');
+        header('Location: ./index.php?action=profil');
     }
 }
 
