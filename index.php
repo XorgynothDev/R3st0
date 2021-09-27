@@ -20,14 +20,13 @@ $GLOBALS['lesMessages'] = array();  // liste des messages (d'erreurs) à affiche
 $GLOBALS['isLoggedOn'] = false;     // témoin de la réalité de la connexion d'un utilisateur
 
 // Décodage du paramètre action et détermination du contrôleur correspondant
-if (isset($_GET["action"])){
+if(isset($_GET["action"])) {
     $action = $_GET["action"];
-}
-else{    
+} else{
     $action = "defaut";
 }
-$fichier = controleurPrincipal($action);
 
+$fichier = controleurPrincipal($action);
 
 // Appel du contrôleur
 try{
@@ -45,7 +44,3 @@ try{
 //// POUR DEBOGUER
 //    $GLOBALS['isLoggedOn'] = isLoggedOn();  // vérifier si un utilisateur est connecté de façon licite
 //    require_once "$racine/controleur/$fichier";
-
-
-
-     
