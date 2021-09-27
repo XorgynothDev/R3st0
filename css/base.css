@@ -237,3 +237,8 @@ a.aimer{
 #alerte{
     background-color: #FC2500;
 }
+
+#identification {
+    width: 100%;
+    text-align: right;
+}
