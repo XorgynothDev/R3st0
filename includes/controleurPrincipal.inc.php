@@ -26,7 +26,10 @@ function controleurPrincipal(string $action) : string {
         return $lesActions[$action];
     }
     else{
-        ajouterMessage("La page " . $action . " n'existe pas !");
+        if($action != "accueil") {
+            ajouterMessage("La page " . $action . " n'existe pas !");
+        }
+
         return $lesActions["defaut"];
     }
 
