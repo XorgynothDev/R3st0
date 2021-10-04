@@ -80,11 +80,11 @@ class RestoDAO {
     public static function getTop4(): array {
         $lesObjets = array();
         try {            
-            $requete = "SELECT SUM(note) AS NotesCumulees, r.idR, nomR, numAdrR, voieAdrR, cpR, villeR, latitudeDegR, longitudeDegR, descR, horairesR  
+            $requete = "SELECT AVG(note) AS MoyNotes, r.idR, nomR, numAdrR, voieAdrR, cpR, villeR, latitudeDegR, longitudeDegR, descR, horairesR  
                        FROM resto r
                        INNER JOIN critiquer c ON r.idR = c.idR 
                        GROUP BY r.idR, nomR, numAdrR, voieAdrR, cpR, villeR, latitudeDegR, longitudeDegR, descR, horairesR 
-                       ORDER BY NotesCumulees DESC
+                       ORDER BY MoyNotes DESC
                        LIMIT 4;
                     ";
             $stmt = Bdd::getConnexion()->prepare($requete);
