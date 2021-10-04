@@ -40,7 +40,7 @@ if (isset($_POST["mailU"]) && isset($_POST["mdpU"]) && isset($_POST["pseudoU"]))
         // Insertion en 2 temps : 
         // 1- tout sauf le mot de passe
         $ret = UtilisateurDAO::insert($user);
-        if ($ret) {
+        if($ret) {
             $inscriptionReussie = true;
             // 2- mise à jour du mot de passe
             $user = UtilisateurDAO::getOneByMail($mailU); // pour récupérer l'id auto-généré

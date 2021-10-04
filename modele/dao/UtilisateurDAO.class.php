@@ -98,7 +98,8 @@ class UtilisateurDAO {
             $stmt->bindValue(':pseudoU', $unUser->getPseudoU(), PDO::PARAM_STR);
             $ok = $stmt->execute();
         } catch (PDOException $e) {
-            throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+            ajouterMessage("Le compte existe déjà");
+            //throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
         }
         return $ok;
     }
