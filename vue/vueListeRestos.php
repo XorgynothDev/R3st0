@@ -22,7 +22,7 @@
 <h1>Liste des restaurants</h1>
 
 <?php
-foreach ($listeRestos as $unResto) {
+foreach($listeRestos as $unResto) {
     $lesTypesCuisineProposes = $unResto->getLesTypesCuisineProposes();
     $lesPhotos = $unResto->getLesPhotos();
     ?>
@@ -39,7 +39,7 @@ foreach ($listeRestos as $unResto) {
 
         </div>
         <div class="descrCard">
-            <a href="./?action=detail&idR=<?= $unResto->getIdR() ?>"><?= $unResto->getNomR() ?></a>
+            <a href="./index.php?action=detail&idR=<?= $unResto->getIdR() ?>"><?= $unResto->getNomR() ?></a>
             <br />
             <?= $unResto->getNumAdr() ?>
             <?= $unResto->getVoieAdr() ?>

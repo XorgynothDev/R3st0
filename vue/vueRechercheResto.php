@@ -20,10 +20,9 @@
   ------------------------- */
 /** @var TypeCuisine $unTC */
 ?>
-
 <h1>Recherche d'un restaurant</h1>
-<form action="./?action=recherche&critere=<?= $critere ?>" method="POST">
 
+<form action="./index.php?action=recherche&critere=<?= $critere ?>" method="POST">
 
     <?php
     switch ($critere) {
@@ -37,7 +36,7 @@
             ?>
             Recherche par adresse : <br />
             <input type="text" name="villeR" placeholder="ville" value="<?= $villeR ?>"/><br />
-            <input type="text" name="cpR" placeholder="code postal" value="<?= $cpR ?>"/><br />
+            <input type="text" name="cpR" placeholder="code postal" maxlength="5" value="<?= $cpR ?>"/><br />
             <input type="text" name="voieAdrR" placeholder="rue" value="<?= $voieAdrR ?>"/><br />
             <?php
             break;
@@ -83,7 +82,7 @@
             Recherche multi-critères<br />
             <input type="text" name="nomR" placeholder="nom du restaurant" value="<?= $nomR ?>"/>
             <input type="text" name="voieAdrR" placeholder="rue" value="<?= $voieAdrR ?>"/><br />
-            <input type="text" name="cpR" placeholder="code postal" value="<?= $cpR ?>"/>
+            <input type="text" name="cpR" placeholder="code postal" maxlength="5" value="<?= $cpR ?>"/>
             <input type="text" name="villeR" placeholder="ville" value="<?= $villeR ?>"/>
 
             <br />
