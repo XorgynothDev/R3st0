@@ -17,8 +17,8 @@ Bdd::connecter();
 // Récupération des données utilisées dans la vue 
 // creation du menu burger
 $menuBurger = array();
-$menuBurger[] = Array("url"=>"./?action=connexion","label"=>"Connexion");
-$menuBurger[] = Array("url"=>"./?action=inscription","label"=>"Inscription");
+$menuBurger[] = Array("url"=>"./index.php?action=connexion","label"=>"Connexion");
+$menuBurger[] = Array("url"=>"./indx.php?action=inscription","label"=>"Inscription");
 
 // Construction de la vue
 // Si le formulaire n'est pas complètement saisi (en provenance d'une autre page que vueAuthentification  ...)
@@ -37,14 +37,14 @@ if (!isset($_POST["mailU"]) || !isset($_POST["mdpU"])){
     login($mailU, $mdpU);
 
     // Si l'utilisateur est connecté (authentification réussie)
-    if (!isLoggedOn()){ 
+    if(!isLoggedOn()) {
         // sinon, la connexion a échoué, on ré-affiche le formulaire de connexion
         ajouterMessage("Connexion : erreur de login ou de mot de passe");
         $titre = "authentification";
         require_once "$racine/vue/entete.html.php";
         require_once "$racine/vue/vueAuthentification.php";
         require_once "$racine/vue/pied.html.php";
-    } else{
+    } else {
         // on affiche le profil
         header('Location: ./index.php?action=profil');
     }

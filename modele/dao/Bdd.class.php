@@ -20,7 +20,7 @@ class Bdd {
     private static $login = "r3st0";   // login utilisateur de la BDD
     private static $mdp = "3dDg5tZXeCQFy06l";         // mdp  utilisateur de la BDD
     private static $bd = "r3st0";          // nom de la BDD
-    private static $serveur = "ultimatex.co";  // nom de domaine du serveur de BDD
+    private static $serveur = "localhost";  // nom de domaine du serveur de BDD
     private static $pdoOptions = array  (
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"   // pour récupérer les données en UTF8
         ,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION        // permet la gestion des exceptions

@@ -138,7 +138,7 @@ class UtilisateurDAO {
         try {
         $requete = "UPDATE utilisateur SET mdpU = :mdpU WHERE idU = :idU";
         $stmt = Bdd::getConnexion()->prepare($requete);
-        $mdpUCrypt = crypt($mdpClair, "sel");
+        $mdpUCrypt = password_hash($mdpClair, PASSWORD_DEFAULT);
         $stmt->bindValue(':mdpU', $mdpUCrypt, PDO::PARAM_STR);
         $stmt->bindValue(':idU', $idU, PDO::PARAM_INT);
         $ok = $stmt->execute();
