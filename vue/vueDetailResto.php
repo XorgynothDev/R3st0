@@ -37,7 +37,9 @@
 </h1>
 
 <span id="note">
-    <?php for ($i = 1; $i <= 5; $i++) { ?>
+    <?php
+    echo \modele\dao\CritiqueDAO::getNoteMoyenneByIdR($unResto->getIdR()) . "/5";
+    for ($i = 1; $i <= 5; $i++) { ?>
         <a class="aimer" href="./?action=noter&note=<?= $i ?>&idR=<?= $unResto->getIdR(); ?>" >
             <?php if ($i <= $noteMoy) { ?>
                 <img class="note" src="images/like.png" alt="">
