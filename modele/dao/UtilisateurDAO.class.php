@@ -30,8 +30,9 @@ class UtilisateurDAO {
     public static function getOneByMail(string $mailU): ?Utilisateur {
         $leUser = null;
         try {
-            $requete = "SELECT * FROM utilisateur WHERE mailU = '".$mailU."'";
+            $requete = "SELECT * FROM utilisateur WHERE mailU = ':mailU'";
             $stmt = Bdd::getConnexion()->query($requete);
+            $stmt->bindParam(':mailU', $mailU, PDO::PARAM_STR);
 
             // Si au moins un (et un seul) utilisateur (car login est unique), c'est que le mail existe dans la BDD
             if ($stmt->rowCount() > 0) {
