@@ -18,12 +18,20 @@
   ------------------------- */
 /** @var Resto $unResto */
 /** @var TypeCuisine $unTC */
+
+$admin = "Non";
+
+if($util->isAdministrator()) {
+    $admin = "Oui";
+}
+
 ?>
 
 <h1>Mon profil</h1>
 
 Mon adresse électronique : <?= $util->getMailU() ?> <br />
 Mon pseudo : <?= $util->getPseudoU() ?> <br />
+Administrateur : <?= $admin ?> <br />
 
 <hr>
 

@@ -41,7 +41,12 @@ class UtilisateurDAO {
                 $idU = $enreg['idU'];
                 $lesRestosAimes = RestoDAO::getAimesByIdU($idU);
                 $lesTcPref = TypeCuisineDAO::getAllPreferesByIdU($idU);
-                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU']);
+
+                $admin = 0;
+
+                if($enreg['admin'] == 1) $admin = 1;
+
+                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $admin);
                 $leUser->setLesTypesCuisinePreferes($lesTcPref);
                 $leUser->setLesRestosAimes($lesRestosAimes);
             }
@@ -69,7 +74,12 @@ class UtilisateurDAO {
                 $enreg = $stmt->fetch(PDO::FETCH_ASSOC);
                 $lesRestosAimes = RestoDAO::getAimesByIdU($idU);
                 $lesTcPref = TypeCuisineDAO::getAllPreferesByIdU($idU);
-                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU']);
+
+                $admin = 0;
+
+                if($enreg['admin'] == 1) $admin = 1;
+
+                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $admin);
                 $leUser->setLesTypesCuisinePreferes($lesTcPref);
                 $leUser->setLesRestosAimes($lesRestosAimes);
             }

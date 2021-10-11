@@ -24,6 +24,7 @@ function login(string $mailU, string $mdpU): void {
     if (!is_null($util)) {
         $mdpBD = $util->getMdpU();
         $idU = $util->getIdU();
+        $admin = $util->isAdministrator();
 
         // Si le mot de passe saisi correspond au mot de passe "haché" de la BDD
         if (password_verify($mdpU, $mdpBD)) {
@@ -31,6 +32,7 @@ function login(string $mailU, string $mdpU): void {
             $_SESSION["idU"] = $idU;        // la clef est idU désormais
             $_SESSION["mailU"] = $mailU;
             $_SESSION["mdpU"] = $mdpBD;
+            $_SESSION["admin"] = $admin;
         }
     }
 }

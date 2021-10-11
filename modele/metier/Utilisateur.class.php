@@ -26,14 +26,14 @@ class Utilisateur {
     private bool $admin;
     
     
-    function __construct(int $idU, string $mailU, ?string $mdpU, ?string $pseudoU) {
+    function __construct(int $idU, string $mailU, ?string $mdpU, ?string $pseudoU, bool $admin) {
         $this->idU = $idU;
         $this->mailU = $mailU;
         $this->mdpU = $mdpU;
         $this->pseudoU = $pseudoU;
         $this->lesTypesCuisinePreferes = array();
         $this->lesRestosAimes = array();
-        $this->admin = false;
+        $this->admin = $admin;
     }
     
     public function __toString() {
