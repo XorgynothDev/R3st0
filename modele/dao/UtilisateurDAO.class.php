@@ -159,7 +159,7 @@ class UtilisateurDAO {
             $stmt->bindParam(':idU', $idU, PDO::PARAM_INT);
             $resultat = $stmt->execute();
         } catch (PDOException $e) {
-            throw new Exception("Erreur dans la méthode " . get_called_class() . "::delete : <br/>" . $e->getMessage());
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::deleteUtil : <br/>" . $e->getMessage());
         }
         return $resultat;
     }
