@@ -117,7 +117,7 @@
                 if ($uneCritique->getLeUtilisateur()->getIdU() == $idU) {
                     // Il doit pouvoir la supprimer
                     ?>
-                    <a href='./?action=supprimerCritique&idR=<?= $unResto->getIdR(); ?>'>Supprimer</a>
+                    <a href='./index.php?action=supprimerCritique&idR=<?= $unResto->getIdR(); ?>'>Supprimer</a>
                 <?php } ?>
             </span>
             <div>
@@ -143,7 +143,7 @@
 <?php
 if ($mailU) {
     ?>
-    <form action="./?action=commenter&idR=<?= $unResto->getIdR(); ?>" method="POST">
+    <form action="./index.php?action=commenter&idR=<?= $unResto->getIdR(); ?>" method="POST">
         <textarea id="commentaireForm" name="commentaire"><?= $monCommentaire ?></textarea><br />
         <input type="submit" value="Enregistrer le commentaire" />
     </form>
