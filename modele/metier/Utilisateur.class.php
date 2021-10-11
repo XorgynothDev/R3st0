@@ -33,7 +33,12 @@ class Utilisateur {
         $this->pseudoU = $pseudoU;
         $this->lesTypesCuisinePreferes = array();
         $this->lesRestosAimes = array();
-        $this->admin = $admin;
+
+        $administrator = false;
+
+        if($admin == 1) $administrator = true;
+
+        $this->admin = $administrator;
     }
     
     public function __toString() {
