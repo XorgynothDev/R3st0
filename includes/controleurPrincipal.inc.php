@@ -20,6 +20,7 @@ function controleurPrincipal(string $action) : string {
     $lesActions["noter"] = "noter.php";
     $lesActions["commenter"] = "commenter.php";
     $lesActions["supprimerCritique"] = "supprimerCritique.php";
+    $lesActions["supprimerUtilisateur"] = "supprimerUtilisateur.php";
 
     
     if (array_key_exists ( $action , $lesActions )){

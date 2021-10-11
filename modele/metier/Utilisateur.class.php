@@ -21,6 +21,9 @@ class Utilisateur {
     private array $lesTypesCuisinePreferes;
     /** @var array tableau<Resto> : liste des restaurants "aimés" par l'utilisateur */
     private array $lesRestosAimes;
+
+    /** @var bool admin<Resto> : Retourne true si l'utilsateur est un administrateur et false si echec */
+    private bool $admin;
     
     
     function __construct(int $idU, string $mailU, ?string $mdpU, ?string $pseudoU) {
@@ -30,10 +33,11 @@ class Utilisateur {
         $this->pseudoU = $pseudoU;
         $this->lesTypesCuisinePreferes = array();
         $this->lesRestosAimes = array();
+        $this->admin = false;
     }
     
     public function __toString() {
-        return get_class()."{id=".$this->idU.", mail=".$this->mailU." ,mdp=".$this->mdpU." ,pseudo=".$this->pseudoU.", ... }" ;
+        return get_class()."{id=".$this->idU.", mail=".$this->mailU." ,mdp=".$this->mdpU." ,pseudo=".$this->pseudoU.",admin=" . $this->admin . "... }" ;
     }    
 
     function getIdU(): int {
@@ -84,6 +88,8 @@ class Utilisateur {
         $this->lesRestosAimes = $lesRestosAimes;
     }
 
-    
+    function isAdministrator() {
+        return $this->admin;
+    }
     
 }

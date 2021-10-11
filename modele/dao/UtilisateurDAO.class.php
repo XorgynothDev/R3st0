@@ -30,12 +30,13 @@ class UtilisateurDAO {
     public static function getOneByMail(string $mailU): ?Utilisateur {
         $leUser = null;
         try {
-            $requete = "SELECT * FROM utilisateur WHERE mailU = ':mailU'";
-            $stmt = Bdd::getConnexion()->query($requete);
-            $stmt->bindParam(':mailU', $mailU, PDO::PARAM_STR);
+            $requete = "SELECT * FROM utilisateur WHERE mailU = ?";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindParam('1', $mailU);
+            $stmt->execute();
 
             // Si au moins un (et un seul) utilisateur (car login est unique), c'est que le mail existe dans la BDD
-            if ($stmt->rowCount() > 0) {
+            if($stmt->rowCount() > 0) {
                 $enreg = $stmt->fetch(PDO::FETCH_ASSOC);
                 $idU = $enreg['idU'];
                 $lesRestosAimes = RestoDAO::getAimesByIdU($idU);
@@ -89,8 +90,9 @@ class UtilisateurDAO {
      */
     public static function insert(Utilisateur $unUser): bool {
         $ok = false;
+
         try {
-            $requete = "INSERT INTO utilisateur (mailU, pseudoU) VALUES (:mailU,:pseudoU)";
+            $requete = "INSERT INTO utilisateur (mailU, pseudoU, admin) VALUES (:mailU, :pseudoU, 0)";
             $stmt = Bdd::getConnexion()->prepare($requete);
 //            $mdpUCrypt = crypt($unUser->getMdpU(), "sel");
             $stmt->bindValue(':mailU', $unUser->getMailU(), PDO::PARAM_STR);
