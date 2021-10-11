@@ -25,7 +25,6 @@ class Utilisateur {
     /** @var bool admin<Resto> : Retourne true si l'utilsateur est un administrateur et false si echec */
     private bool $admin;
     
-    
     function __construct(int $idU, string $mailU, ?string $mdpU, ?string $pseudoU, bool $admin) {
         $this->idU = $idU;
         $this->mailU = $mailU;
