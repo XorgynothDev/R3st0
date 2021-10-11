@@ -152,5 +152,16 @@ class UtilisateurDAO {
         }
         return $ok;
     }
+    public static function deleteUtil(int $idU): bool {
+        $resultat = false;
+        try {
+            $stmt = Bdd::getConnexion()->prepare("DELETE FROM utilisateur WHERE idU=:idU");
+            $stmt->bindParam(':idU', $idU, PDO::PARAM_INT);
+            $resultat = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::delete : <br/>" . $e->getMessage());
+        }
+        return $resultat;
+    }
 
 }
