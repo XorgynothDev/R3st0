@@ -17,10 +17,10 @@ Bdd::connecter();
     
 // creation du menu burger
 $menuBurger = array();
-$menuBurger[] = Array("url"=>"./?action=recherche&critere=nom","label"=>"Recherche par nom");
-$menuBurger[] = Array("url"=>"./?action=recherche&critere=adresse","label"=>"Recherche par adresse");
-$menuBurger[] = Array("url"=>"./?action=recherche&critere=type","label"=>"Recherche par type de cuisine");
-$menuBurger[] = Array("url"=>"./?action=recherche&critere=multi","label"=>"Recherche multicritère");
+$menuBurger[] = Array("url"=>"./index.php?action=recherche&critere=nom","label"=>"Recherche par nom");
+$menuBurger[] = Array("url"=>"./index.php?action=recherche&critere=adresse","label"=>"Recherche par adresse");
+$menuBurger[] = Array("url"=>"./index.php?action=recherche&critere=type","label"=>"Recherche par type de cuisine");
+$menuBurger[] = Array("url"=>"./index.php?action=recherche&critere=multi","label"=>"Recherche multicritère");
 
 // recuperation des donnees GET, POST, et SESSION
 // critere de recherche par defaut : le nom
@@ -40,8 +40,12 @@ if (isset($_POST["voieAdrR"])){
 }
 
 $cpR="";
-if (isset($_POST["cpR"])){
+if(isset($_POST["cpR"])) {
     $cpR = $_POST["cpR"];
+
+    if(strlen($cpR) < 5) {
+        ajouterMessage("Le code postale saisie est incorrect !");
+    }
 }
 
 $villeR="";
@@ -87,11 +91,15 @@ if ($critere=="type" || $critere=="multi"){
 // Construction de la vue
 $titre = "Recherche d'un restaurant";
 require_once "$racine/vue/entete.html.php";
-if (empty($_POST)) {
-    require_once "$racine/vue/vueRechercheResto.php";    
-}else{    
+if(empty($_POST)) {
+    require_once "$racine/vue/vueRechercheResto.php";
+} else {
     // affichage des resultats de la recherche
-    include "$racine/vue/vueListeRestos.php";
+    if(strlen($cpR) < 5) {
+        include "$racine/vue/vueRechercheResto.php";
+    } else {
+        include "$racine/vue/vueListeRestos.php";
+    }
 }
 require_once "$racine/vue/pied.html.php";
 

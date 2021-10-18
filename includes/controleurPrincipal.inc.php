@@ -20,14 +20,18 @@ function controleurPrincipal(string $action) : string {
     $lesActions["noter"] = "noter.php";
     $lesActions["commenter"] = "commenter.php";
     $lesActions["supprimerCritique"] = "supprimerCritique.php";
+    $lesActions["supprimerUtilisateur"] = "supprimerUtilisateur.php";
 
     
     if (array_key_exists ( $action , $lesActions )){
         return $lesActions[$action];
     }
     else{
+        if($action != "accueil") {
+            ajouterMessage("La page " . $action . " n'existe pas !");
+        }
+
         return $lesActions["defaut"];
     }
 
 }
-

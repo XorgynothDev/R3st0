@@ -37,7 +37,9 @@
 </h1>
 
 <span id="note">
-    <?php for ($i = 1; $i <= 5; $i++) { ?>
+    <?php
+    echo \modele\dao\CritiqueDAO::getNoteMoyenneByIdR($unResto->getIdR()) . "/5";
+    for ($i = 1; $i <= 5; $i++) { ?>
         <a class="aimer" href="./?action=noter&note=<?= $i ?>&idR=<?= $unResto->getIdR(); ?>" >
             <?php if ($i <= $noteMoy) { ?>
                 <img class="note" src="images/like.png" alt="">
@@ -115,7 +117,7 @@
                 if ($uneCritique->getLeUtilisateur()->getIdU() == $idU) {
                     // Il doit pouvoir la supprimer
                     ?>
-                    <a href='./?action=supprimerCritique&idR=<?= $unResto->getIdR(); ?>'>Supprimer</a>
+                    <a href='./index.php?action=supprimerCritique&idR=<?= $unResto->getIdR(); ?>'>Supprimer</a>
                 <?php } ?>
             </span>
             <div>
@@ -141,7 +143,7 @@
 <?php
 if ($mailU) {
     ?>
-    <form action="./?action=commenter&idR=<?= $unResto->getIdR(); ?>" method="POST">
+    <form action="./index.php?action=commenter&idR=<?= $unResto->getIdR(); ?>" method="POST">
         <textarea id="commentaireForm" name="commentaire"><?= $monCommentaire ?></textarea><br />
         <input type="submit" value="Enregistrer le commentaire" />
     </form>

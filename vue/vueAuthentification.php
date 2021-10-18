@@ -1,5 +1,5 @@
 <h1>Connexion</h1>
-<form action="./?action=connexion" method="POST">
+<form action="./index.php?action=connexion" method="POST">
 
     <input type="text" name="mailU" placeholder="Email de connexion" /><br />
     <input type="password" name="mdpU" placeholder="Mot de passe"  /><br />
@@ -7,7 +7,7 @@
 
 </form>
 <br />
-<a href="./?action=inscription">Inscription</a>
+<a href="./index.php?action=inscription">Inscription</a>
 
 <hr>
 Utilisateur de test : <br />

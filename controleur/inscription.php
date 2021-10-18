@@ -36,7 +36,7 @@ if (isset($_POST["mailU"]) && isset($_POST["mdpU"]) && isset($_POST["pseudoU"]))
         $pseudoU = $_POST["pseudoU"];
 
         // Enregistrement des donnees dans la base de données
-        $user = new Utilisateur(0, $mailU, $mdpU, $pseudoU);
+        $user = new Utilisateur(0, $mailU, $mdpU, $pseudoU, false);
         // Insertion en 2 temps : 
         // 1- tout sauf le mot de passe
         $ret = UtilisateurDAO::insert($user);

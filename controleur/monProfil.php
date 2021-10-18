@@ -34,6 +34,7 @@ if (isLoggedOn()){
     $util = UtilisateurDAO::getOneById($idU);   
     $mesRestosAimes = $util->getLesRestosAimes();
     $mesTypeCuisinePreferes = $util->getLesTypesCuisinePreferes();
+
     // Construction de la vue
     require_once "$racine/vue/entete.html.php";
     require_once "$racine/vue/vueMonProfil.php";

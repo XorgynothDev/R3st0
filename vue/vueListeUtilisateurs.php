@@ -9,35 +9,22 @@
 * 
  * Variables transmises par le contrôleur listeRestos ou rechercheresto contenant les données à afficher : 
   ---------------------------------------------------------------------------------------- */
-/** @var array $listeRestos les restaurants filtrés */
+/** @var array $listeUtil les utilisateurs filtrés */
 /**
  * Variables supplémentaires :  
   ------------------------- */
-/** @var Resto $unResto */
-/** @var array $lesTypesCuisineProposes */
-/** @var array $lesPhotos */
-/** @var Photo $unePhoto */
-/** @var TypeCuisine $unTC */
+/** @var Utilisateur $idU */
+/** @var Pseudo $pseudoU */
+/** @var Mail $mailU */
 ?>
-<h1>Liste des restaurants</h1>
+<h1>Liste des utilisateurs</h1>
 
 <?php
-foreach($listeRestos as $unResto) {
-    $lesTypesCuisineProposes = $unResto->getLesTypesCuisineProposes();
-    $lesPhotos = $unResto->getLesPhotos();
+foreach($listeUtil as $idU) {
+    $pseudoU = $idU->getPseudoU();
+    $mailU = $idU->getMailU();
     ?>
-    <div class="card">
-        <div class="photoCard">
-            <?php
-            if (count($lesPhotos) > 0) {
-                $unePhoto = $lesPhotos[0];
-                ?>
-                <img src="photos/<?= $unePhoto->getCheminP() ?>" alt="photo du restaurant" />
-                <?php
-            }
-            ?>
 
-        </div>
         <div class="descrCard">
             <a href="./index.php?action=detail&idR=<?= $unResto->getIdR() ?>"><?= $unResto->getNomR() ?></a>
             <br />

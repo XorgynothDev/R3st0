@@ -66,7 +66,7 @@ class CritiqueDAO {
             // attention, $ok = true pour un select ne retournant aucune ligne
             if ($ok && $stmt->rowCount() > 0) {
                 $enreg = $stmt->fetch(PDO::FETCH_ASSOC);
-                $user = new Utilisateur($enreg['idU'], $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU']);
+                $user = new Utilisateur($enreg['idU'], $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $enreg['admin']);
                 $laCritique = new Critique($enreg['note'], $enreg['commentaire'], $user);
             }
         } catch (PDOException $e) {
@@ -95,7 +95,7 @@ class CritiqueDAO {
             $ok = $stmt->execute();
             if ($ok) {
                 while ($enreg = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $user = new Utilisateur($enreg['idU'], $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU']);
+                    $user = new Utilisateur($enreg['idU'], $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $enreg['admin']);
                     $lesObjets[] = new Critique($enreg['note'], $enreg['commentaire'], $user);
                 }
             }

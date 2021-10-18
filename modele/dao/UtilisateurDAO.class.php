@@ -30,16 +30,19 @@ class UtilisateurDAO {
     public static function getOneByMail(string $mailU): ?Utilisateur {
         $leUser = null;
         try {
-            $requete = "SELECT * FROM utilisateur WHERE mailU = '".$mailU."'";
-            $stmt = Bdd::getConnexion()->query($requete);
+            $requete = "SELECT * FROM utilisateur WHERE mailU = ?";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindParam('1', $mailU);
+            $stmt->execute();
 
             // Si au moins un (et un seul) utilisateur (car login est unique), c'est que le mail existe dans la BDD
-            if ($stmt->rowCount() > 0) {
+            if($stmt->rowCount() > 0) {
                 $enreg = $stmt->fetch(PDO::FETCH_ASSOC);
                 $idU = $enreg['idU'];
                 $lesRestosAimes = RestoDAO::getAimesByIdU($idU);
                 $lesTcPref = TypeCuisineDAO::getAllPreferesByIdU($idU);
-                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU']);
+
+                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $enreg['admin']);
                 $leUser->setLesTypesCuisinePreferes($lesTcPref);
                 $leUser->setLesRestosAimes($lesRestosAimes);
             }
@@ -67,7 +70,8 @@ class UtilisateurDAO {
                 $enreg = $stmt->fetch(PDO::FETCH_ASSOC);
                 $lesRestosAimes = RestoDAO::getAimesByIdU($idU);
                 $lesTcPref = TypeCuisineDAO::getAllPreferesByIdU($idU);
-                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU']);
+
+                $leUser = new Utilisateur($idU, $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $enreg['admin']);
                 $leUser->setLesTypesCuisinePreferes($lesTcPref);
                 $leUser->setLesRestosAimes($lesRestosAimes);
             }
@@ -88,8 +92,9 @@ class UtilisateurDAO {
      */
     public static function insert(Utilisateur $unUser): bool {
         $ok = false;
+
         try {
-            $requete = "INSERT INTO utilisateur (mailU, pseudoU) VALUES (:mailU,:pseudoU)";
+            $requete = "INSERT INTO utilisateur (mailU, pseudoU, admin) VALUES (:mailU, :pseudoU, 0)";
             $stmt = Bdd::getConnexion()->prepare($requete);
 //            $mdpUCrypt = crypt($unUser->getMdpU(), "sel");
             $stmt->bindValue(':mailU', $unUser->getMailU(), PDO::PARAM_STR);
@@ -138,7 +143,7 @@ class UtilisateurDAO {
         try {
         $requete = "UPDATE utilisateur SET mdpU = :mdpU WHERE idU = :idU";
         $stmt = Bdd::getConnexion()->prepare($requete);
-        $mdpUCrypt = crypt($mdpClair, "sel");
+        $mdpUCrypt = password_hash($mdpClair, PASSWORD_DEFAULT);
         $stmt->bindValue(':mdpU', $mdpUCrypt, PDO::PARAM_STR);
         $stmt->bindValue(':idU', $idU, PDO::PARAM_INT);
         $ok = $stmt->execute();
@@ -146,6 +151,17 @@ class UtilisateurDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::updateMdp : <br/>" . $e->getMessage());
         }
         return $ok;
+    }
+    public static function deleteUtil(int $idU): bool {
+        $resultat = false;
+        try {
+            $stmt = Bdd::getConnexion()->prepare("DELETE FROM utilisateur WHERE idU=:idU");
+            $stmt->bindParam(':idU', $idU, PDO::PARAM_INT);
+            $resultat = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::deleteUtil : <br/>" . $e->getMessage());
+        }
+        return $resultat;
     }
 
 }
