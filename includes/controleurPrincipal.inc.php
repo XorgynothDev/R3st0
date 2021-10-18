@@ -21,7 +21,9 @@ function controleurPrincipal(string $action) : string {
     $lesActions["commenter"] = "commenter.php";
     $lesActions["supprimerCritique"] = "supprimerCritique.php";
     $lesActions["supprimerUtilisateur"] = "supprimerUtilisateur.php";
+    $lesActions["supprimerTC"] = "supprimerTC.php";
     $lesActions["listeUtilisateurs"] = "listeUtilisateurs.php";
+    $lesActions["listeTC"] = "listeTC.php";
     
     if (array_key_exists ( $action , $lesActions )){
         return $lesActions[$action];

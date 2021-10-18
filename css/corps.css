@@ -57,6 +57,28 @@ div.cardUtil{
 	box-shadow: 1px 1px 4px #bbb;
 }
 
+div.cardTC {
+	position: relative;
+	width: 180px;
+	min-height: 50px;
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	background-color: var(--fondC);
+	box-shadow: 1px 1px 4px #bbb;
+}
+button.deleteTC {
+	border: none;
+	border-radius: 4px;
+	width: 50%;
+	margin-top: 10px;
+}
+
+button.deleteTC:hover {
+	background-color: red;
+	transition-duration: 0.35s;
+}
+
 button.deleteUtil {
 	border: none;
 	border-radius: 4px;

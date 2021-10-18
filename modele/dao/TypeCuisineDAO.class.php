@@ -51,7 +51,8 @@ class TypeCuisineDAO {
             $ok = $stmt->execute();
             if ($ok) {
                 while ($enreg = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $lesObjets[] = new TypeCuisine($enreg['idTC'], $enreg['libelleTC']);
+                    //Instancier un nouveau type de cuisine et l'ajouter à la liste
+                    $lesObjets[] = self::enregistrementVersObjet($enreg);
                 }
             }
         } catch (PDOException $e) {
@@ -62,7 +63,7 @@ class TypeCuisineDAO {
 
     /**
      * Liste des types de cuisine préférés par un utilisateur
-     * @param int $idU identifiant de l'utilisateur
+     * @param int $idTC identifiant du type de cuisine
      * @return array tableau d'objets de type TypeCuisine
      */
     public static function getAllPreferesByIdU(int $idU): array {
@@ -133,6 +134,28 @@ class TypeCuisineDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::getAllProposesByIdR : <br/>" . $e->getMessage());
         }
         return $lesObjets;
+    }
+
+    public static function deleteTC(int $idTC): bool {
+        $resultat = false;
+        try {
+            $stmt = Bdd::getConnexion()->prepare("DELETE FROM typeCuisine WHERE idTC=:idTC");
+            $stmt->bindParam(':idTC', $idTC, PDO::PARAM_INT);
+            $resultat = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::deleteTC : <br/>" . $e->getMessage());
+        }
+        return $resultat;
+    }
+    private static function enregistrementVersObjet(array $enreg): TypeCuisine {
+        $id = $enreg['idTC'];
+        // Instanciation sans les associations
+
+        $typeCuisine = new TypeCuisine(
+            $enreg['idTC'], $enreg['libelleTC']
+        );
+
+        return $typeCuisine;
     }
 
 }
