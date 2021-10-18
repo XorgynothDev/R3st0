@@ -2,11 +2,8 @@
 
 namespace modele\dao;
 
-use modele\metier\Utilisateur;
 use modele\metier\Resto;
-use modele\dao\RestoDAO;
-use modele\dao\TypeCuisineDAO;
-use modele\dao\Bdd;
+use modele\metier\Utilisateur;
 use PDO;
 use PDOException;
 use Exception;
@@ -50,6 +47,31 @@ class UtilisateurDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::getOneByMail : <br/>" . $e->getMessage());
         }
         return $leUser;
+    }
+
+    /**
+     * Retourne tous les utilisateurs
+     * @return array tableau d'objets Utilisateur
+     * @throws Exception transmission des erreurs PDO éventuelles
+     */
+    public static function getAll(): array {
+        $lesObjets = array();
+        try {
+            $requete = "SELECT * FROM utilisateur";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $ok = $stmt->execute();
+            // attention, $ok = true pour un select ne retournant aucune ligne
+            if ($ok) {
+                // Pour chaque enregistrement
+                while ($enreg = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    //Instancier un nouveau restaurant et l'ajouter à la liste
+                    $lesObjets[] = self::enregistrementVersObjet($enreg);
+                }
+            }
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::getAll : <br/>" . $e->getMessage());
+        }
+        return $lesObjets;
     }
 
     /**
@@ -162,6 +184,17 @@ class UtilisateurDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::deleteUtil : <br/>" . $e->getMessage());
         }
         return $resultat;
+    }
+
+    private static function enregistrementVersObjet(array $enreg): Utilisateur {
+        $id = $enreg['idU'];
+        // Instanciation sans les associations
+
+        $utilisateur = new Utilisateur(
+            $enreg['idU'], $enreg['mailU'], $enreg['mdpU'], $enreg['pseudoU'], $enreg['admin']
+        );
+
+        return $utilisateur;
     }
 
 }

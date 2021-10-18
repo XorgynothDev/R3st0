@@ -20,31 +20,34 @@
 <h1>Liste des utilisateurs</h1>
 
 <?php
-foreach($listeUtil as $idU) {
-    $pseudoU = $idU->getPseudoU();
-    $mailU = $idU->getMailU();
-    ?>
+    foreach($listeUtil as $utilisateur) {
+        $pseudoU = $utilisateur->getPseudoU();
+        $mailU = $utilisateur->getMailU();
 
-        <div class="descrCard">
-            <a href="./index.php?action=detail&idR=<?= $unResto->getIdR() ?>"><?= $unResto->getNomR() ?></a>
-            <br />
-            <?= $unResto->getNumAdr() ?>
-            <?= $unResto->getVoieAdr() ?>
-            <br />
-            <?= $unResto->getCpR() ?>
-            <?= $unResto->getVilleR() ?>
-        </div>
-        <div class="tagCard">
-            <ul id="tagFood">		
+        ?>
+
+        <div class="cardUtil">
+            <div class="descrCard">
                 <?php
-                foreach ($lesTypesCuisineProposes as $unTC) {
-                    ?>
-                    <li class="tag"><span class="tag">#</span><?= $unTC->getLibelleTC() ?></li>
-                    <?php
-                } ?>
-            </ul>
+
+                if($utilisateur->isAdministrator()) {
+                    echo $pseudoU . "<font color='orange'> (admin)</font>";
+                } else {
+                    echo $pseudoU;
+                }
+
+                echo "<br>";
+                echo $mailU;
+                echo "<br>";
+
+                if(!$utilisateur->isAdministrator()) { ?>
+                    <a href="./?action=supprimerUtilisateur&idU=<?= $utilisateur->getIdU(); ?>"><button class="deleteUtil">Supprimer</button></a>
+                <?php }
+                ?>
+            </div>
         </div>
-    </div>
-    <?php
-}
+        <?php
+    } ?>
+
+<?php
 ?>

@@ -16,10 +16,14 @@ if (!isset($_GET["idU"])) {
 } else {
     $idU = intval($_GET["idU"]);
 
-// Un utilisateur doit être connecté
-    $idU = getIdULoggedOn();
-    if ($idU != 0) {
-        UtilisateurDAO::deleteUtil($idU);
+    if($idU != 0) {
+        $util = UtilisateurDAO::getOneById($idU);
+
+        if(!$util->isAdministrator()) {
+            UtilisateurDAO::deleteUtil($idU);
+        } else {
+            ajouterMessage("FDP");
+        }
     }
 
 // redirection vers la page d'origine
