@@ -33,13 +33,27 @@ Mon adresse électronique : <?= $util->getMailU() ?> <br />
 Mon pseudo : <?= $util->getPseudoU() ?> <br />
 Administrateur : <?= $admin ?> <br />
 
+<br>
+
+<?php
+
+if($util->isAdministrator()) {
+    echo "<h1>Accès administrateur</h1>";
+    echo "<a href='./?action=listeUtilisateurs'>Liste des utilisateurs</a>";
+    echo "<br>";
+}
+
+?>
+
+<br>
+
 <hr>
 
 les restaurants que j'aime : <br />
 <?php
 foreach ($mesRestosAimes as $unResto) {
     ?>
-    <a href="./index.php?action=detail&idR=<?= $unResto->getIdR() ?>"><?= $unResto->getNomR() ?></a><br />
+    <a href="./?action=detail&idR=<?= $unResto->getIdR() ?>"><?= $unResto->getNomR() ?></a><br />
     <?php
 }
 ?>

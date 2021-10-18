@@ -3,10 +3,7 @@
 namespace modele\dao;
 
 use modele\metier\Resto;
-use modele\dao\CritiqueDAO;
-use modele\dao\TypeCuisineDAO;
-use modele\dao\PhotoDAO;
-use modele\dao\Bdd;
+use modele\metier\Utilisateur;
 use PDO;
 use PDOException;
 use Exception;
@@ -203,6 +200,28 @@ class RestoDAO {
         return $lesObjets;
     }
 
+    public static function insert(Resto $resto): bool {
+        $ok = false;
+
+        try {
+            $requete = "INSERT INTO resto (nomR, numAdrR, voieAdrR, cpR, villeR, latitudeDegR, longitudeDegR, descR, horairesR) VALUES (:nomR, :numAdrR, :voieAdr, :cpR, :latitudeDegR, :longitudeDegR, :descR, :horairesR)";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindValue(':nomR', $resto->getNomR(), PDO::PARAM_STR);
+            $stmt->bindValue(':numAdrR', $resto->getNumAdr(), PDO::PARAM_STR);
+            $stmt->bindValue(':voieAdrR', $resto->getVoieAdr(), PDO::PARAM_STR);
+            $stmt->bindValue(':cpR', $resto->getCpR(), PDO::PARAM_STR);
+            $stmt->bindValue(':villeR', $resto->getVilleR(), PDO::PARAM_STR);
+            $stmt->bindValue(':latitudeDegR', $resto->getLatitudeDegR(), PDO::PARAM_STR);
+            $stmt->bindValue(':longitudeDegR', $resto->getLongitudeDegR(), PDO::PARAM_STR);
+            $stmt->bindValue(':descR', $resto->getDescR(), PDO::PARAM_STR);
+            $stmt->bindValue(':horairesR', $resto->getHorairesR(), PDO::PARAM_STR);
+            $ok = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+        }
+        return $ok;
+    }
+
     /**
      * Recherche de restaurants selon plusieurs critères (filtrage)
      * Tous les critères doivent être réunis (ET logique) sauf les types de cuisine, 1 au moins parmi tous (OU logique)
@@ -289,7 +308,17 @@ class RestoDAO {
         return $lesObjets;
     }
 
-
+    public static function supprimer(int $idR) {
+        try {
+            $requete = "DELETE FROM resto"
+                . " WHERE idR = :idR";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindParam(':idR', $idR, PDO::PARAM_INT);
+            $ok = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::supprimer : <br/>" . $e->getMessage());
+        }
+    }
 
     /**
      * Fabrique un objet restaurant à partir d'un enregistrement de la table resto

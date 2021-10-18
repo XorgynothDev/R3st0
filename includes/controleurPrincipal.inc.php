@@ -23,6 +23,8 @@ function controleurPrincipal(string $action) : string {
     $lesActions["supprimerUtilisateur"] = "supprimerUtilisateur.php";
     $lesActions["supprimerTC"] = "supprimerTC.php";
     $lesActions["listeUtilisateurs"] = "listeUtilisateurs.php";
+    $lesActions["supprimerResto"] = "supprimerResto.php";
+    $lesActions["ajouterResto"] = "ajouterResto.php";
     $lesActions["listeTC"] = "listeTC.php";
     
     if (array_key_exists ( $action , $lesActions )){

@@ -1,4 +1,7 @@
 <?php
+
+use modele\dao\UtilisateurDAO;
+
 /**
  * --------------
  * vueListeRestos
@@ -22,6 +25,22 @@
 <h1>Liste des restaurants</h1>
 
 <?php
+
+$idU = getIdULoggedOn();
+$util = null;
+
+if($idU != 0) {
+    $util = UtilisateurDAO::getOneById($idU);
+
+    if($util->isAdministrator()) {
+        ?>
+        <br>
+        <a href="./?action=ajouterResto"><button class="deleteUtil">Ajouter</button></a>
+        <?php
+        echo "<br>";
+    }
+}
+
 foreach($listeRestos as $unResto) {
     $lesTypesCuisineProposes = $unResto->getLesTypesCuisineProposes();
     $lesPhotos = $unResto->getLesPhotos();
@@ -60,7 +79,16 @@ foreach($listeRestos as $unResto) {
 
             <br>
 
-            <a href="./?action=supprimerUtilisateur&idU="><button class="deleteUtil">Supprimer</button></a>
+            <?php
+
+            if($util != null) {
+                if($util->isAdministrator()) { ?>
+                    <a href="./?action=supprimerResto&idR=<?= $unResto->getIdR() ?>"><button class="deleteUtil">Supprimer</button></a>
+                    <?php
+                }
+            }
+
+            ?>
         </div>
     </div>
     <?php

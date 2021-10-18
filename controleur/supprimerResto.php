@@ -2,14 +2,15 @@
 
 use modele\dao\Bdd;
 use modele\dao\UtilisateurDAO;
+use modele\dao\RestoDAO;
 
 Bdd::connecter();
 
 
 // Récupération des données GET, POST, et SESSION
-if(!isset($_GET["idU"])) {
+if(!isset($_GET["idR"])) {
     // Pb : pas d'id d'utilisateur
-    ajouterMessage("Supprimer utilisateur : il faut un utilisateur");
+    ajouterMessage("Supprimer restaurants : il faut fournir un identifiant de restaurant");
     $titre = "erreur";
     require_once "$racine/vue/entete.html.php";
     require_once "$racine/vue/pied.html.php";
@@ -20,13 +21,9 @@ if(!isset($_GET["idU"])) {
         $util = UtilisateurDAO::getOneById($idU);
 
         if($util->isAdministrator()) {
-            if(UtilisateurDAO::getOneById($_GET["idU"])->isAdministrator()) {
-                UtilisateurDAO::deleteUtil(intval($_GET["idU"]));
-            } else {
-                echo "Impossible de supprimer un Administrateur !";
-            }
+            RestoDAO::supprimer($_GET["idR"]);
         } else {
-            echo "Vous n'êtes pas un administrateur !";
+            echo "Impossible de supprimer un Administrateur !";
         }
     } else {
         echo "Vous devez être connecté !";
