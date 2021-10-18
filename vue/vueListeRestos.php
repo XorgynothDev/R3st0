@@ -47,6 +47,7 @@ foreach($listeRestos as $unResto) {
             <?= $unResto->getCpR() ?>
             <?= $unResto->getVilleR() ?>
         </div>
+
         <div class="tagCard">
             <ul id="tagFood">		
                 <?php
@@ -56,6 +57,10 @@ foreach($listeRestos as $unResto) {
                     <?php
                 } ?>
             </ul>
+
+            <br>
+
+            <a href="./?action=supprimerUtilisateur&idU="><button class="deleteUtil">Supprimer</button></a>
         </div>
     </div>
     <?php

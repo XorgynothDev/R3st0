@@ -26,12 +26,10 @@ span.tag{
 	
 }
 
-
-
 div.card{
     position : relative;
     width:180px;
-    height : 250px;
+    height : 300px;
     float:left;
     padding:10px;
     margin : 10px;

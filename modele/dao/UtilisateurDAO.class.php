@@ -57,7 +57,7 @@ class UtilisateurDAO {
     public static function getAll(): array {
         $lesObjets = array();
         try {
-            $requete = "SELECT * FROM utilisateur";
+            $requete = "SELECT * FROM utilisateur";@
             $stmt = Bdd::getConnexion()->prepare($requete);
             $ok = $stmt->execute();
             // attention, $ok = true pour un select ne retournant aucune ligne

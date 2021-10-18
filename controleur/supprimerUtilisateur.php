@@ -7,23 +7,25 @@ Bdd::connecter();
 
 
 // Récupération des données GET, POST, et SESSION
-if (!isset($_GET["idU"])) {
+if(!isset($_GET["idU"])) {
     // Pb : pas d'id d'utilisateur
     ajouterMessage("Supprimer utilisateur : il faut un utilisateur");
     $titre = "erreur";
     require_once "$racine/vue/entete.html.php";
     require_once "$racine/vue/pied.html.php";
 } else {
-    $idU = intval($_GET["idU"]);
+    $idU = getIdULoggedOn();
 
     if($idU != 0) {
         $util = UtilisateurDAO::getOneById($idU);
 
-        if(!$util->isAdministrator()) {
-            UtilisateurDAO::deleteUtil($idU);
+        if($util->isAdministrator()) {
+            UtilisateurDAO::deleteUtil(intval($_GET["idU"]));
         } else {
-            ajouterMessage("Impossible de supprimer un Administrateur !");
+            echo "Impossible de supprimer un Administrateur !";
         }
+    } else {
+        echo "Vous devez être connecté !";
     }
 
 // redirection vers la page d'origine

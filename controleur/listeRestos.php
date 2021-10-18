@@ -20,7 +20,6 @@ $menuBurger[] = Array("url"=>"./?action=recherche&critere=multi","label"=>"Reche
 // appel des fonctions permettant de recuperer les donnees utiles a l'affichage 
 $listeRestos =  RestoDAO::getAll();
 
-
 // Construction de la vue
 $titre = "Liste des restaurants répertoriés";
 require_once "$racine/vue/entete.html.php";

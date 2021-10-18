@@ -1,4 +1,7 @@
 <?php
+
+use modele\dao\UtilisateurDAO;
+
 /**
  * --------------
  * vueListeRestos
@@ -20,34 +23,45 @@
 <h1>Liste des utilisateurs</h1>
 
 <?php
-    foreach($listeUtil as $utilisateur) {
-        $pseudoU = $utilisateur->getPseudoU();
-        $mailU = $utilisateur->getMailU();
+    $idU = getIdULoggedOn();
 
-        ?>
+    if($idU != 0) {
+        $util = UtilisateurDAO::getOneById($idU);
 
-        <div class="cardUtil">
-            <div class="descrCard">
-                <?php
-
-                if($utilisateur->isAdministrator()) {
-                    echo $pseudoU . "<font color='orange'> (admin)</font>";
-                } else {
-                    echo $pseudoU;
-                }
-
-                echo "<br>";
-                echo $mailU;
-                echo "<br>";
-
-                if(!$utilisateur->isAdministrator()) { ?>
-                    <a href="./?action=supprimerUtilisateur&idU=<?= $utilisateur->getIdU(); ?>"><button class="deleteUtil">Supprimer</button></a>
-                <?php }
+        if($util->isAdministrator()) {
+            foreach($listeUtil as $utilisateur) {
+                $pseudoU = $utilisateur->getPseudoU();
+                $mailU = $utilisateur->getMailU();
                 ?>
-            </div>
-        </div>
-        <?php
-    } ?>
 
-<?php
+                <div class="cardUtil">
+                    <div class="descrCard">
+                        <?php
+
+                        if($utilisateur->isAdministrator()) {
+                            echo $pseudoU . "<font color='orange'> (admin)</font>";
+                        } else {
+                            echo $pseudoU;
+                        }
+
+                        echo "<br>";
+                        echo $mailU;
+                        echo "<br>";
+
+                        if(!$utilisateur->isAdministrator()) { ?>
+                            <a href="./?action=supprimerUtilisateur&idU=<?= $utilisateur->getIdU(); ?>"><button class="deleteUtil">Supprimer</button></a>
+                        <?php }
+                        ?>
+                    </div>
+                </div>
+                <?php
+            } ?>
+
+            <?php
+        } else {
+            echo "Vous n'êtes pas un administrateur !";
+        }
+    } else {
+        echo "Vous devez être connecté !";
+    }
 ?>
