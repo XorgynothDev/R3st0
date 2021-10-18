@@ -22,7 +22,7 @@ if (!isset($_GET["idU"])) {
         if(!$util->isAdministrator()) {
             UtilisateurDAO::deleteUtil($idU);
         } else {
-            ajouterMessage("FDP");
+            ajouterMessage("Impossible de supprimer un Administrateur !");
         }
     }
 
