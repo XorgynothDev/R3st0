@@ -203,22 +203,27 @@ class RestoDAO {
     public static function insert(Resto $resto): bool {
         $ok = false;
 
+        $restos = self::getAll();
+        $id = $restos[count($restos) - 1]->getIdR() + 1;
+
         try {
-            $requete = "INSERT INTO resto (nomR, numAdrR, voieAdrR, cpR, villeR, latitudeDegR, longitudeDegR, descR, horairesR) VALUES (:nomR, :numAdrR, :voieAdr, :cpR, :latitudeDegR, :longitudeDegR, :descR, :horairesR)";
+            $requete = "INSERT INTO resto (idR, nomR, numAdrR, voieAdrR, cpR, villeR, latitudeDegR, longitudeDegR, descR, horairesR) VALUES (:id, :nomR, :numAdrR, :voieAdrR, :cpR, :villeR, :latitudeDegR, :longitudeDegR, :descR, :horairesR)";
             $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->bindValue(':nomR', $resto->getNomR(), PDO::PARAM_STR);
             $stmt->bindValue(':numAdrR', $resto->getNumAdr(), PDO::PARAM_STR);
             $stmt->bindValue(':voieAdrR', $resto->getVoieAdr(), PDO::PARAM_STR);
             $stmt->bindValue(':cpR', $resto->getCpR(), PDO::PARAM_STR);
             $stmt->bindValue(':villeR', $resto->getVilleR(), PDO::PARAM_STR);
-            $stmt->bindValue(':latitudeDegR', $resto->getLatitudeDegR(), PDO::PARAM_STR);
-            $stmt->bindValue(':longitudeDegR', $resto->getLongitudeDegR(), PDO::PARAM_STR);
+            $stmt->bindValue(':latitudeDegR', $resto->getLatitudeDegR(), PDO::PARAM_INT);
+            $stmt->bindValue(':longitudeDegR', $resto->getLongitudeDegR(), PDO::PARAM_INT);
             $stmt->bindValue(':descR', $resto->getDescR(), PDO::PARAM_STR);
             $stmt->bindValue(':horairesR', $resto->getHorairesR(), PDO::PARAM_STR);
             $ok = $stmt->execute();
         } catch (PDOException $e) {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
         }
+
         return $ok;
     }
 

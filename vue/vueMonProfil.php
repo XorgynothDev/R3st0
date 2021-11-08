@@ -39,7 +39,8 @@ Administrateur : <?= $admin ?> <br />
 
 if($util->isAdministrator()) {
     echo "<h1>Accès administrateur</h1>";
-    echo "<a href='./?action=listeUtilisateurs'>Liste des utilisateurs</a>";
+    echo "<a href='./?action=listeUtilisateurs'>Liste des utilisateurs</a><br>";
+    echo "<a href='./?action=listeTC'>Liste type de cuisine</a>";
     echo "<br>";
 }
 

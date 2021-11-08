@@ -46,26 +46,21 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
 
         // Enregistrement des donnees dans la base de données
         $resto = new Resto(0, $nomR, $numAdr, $voieAdr, $cpR, $villeR, $latitudeDegR, $longitudeDegR, $descR, $horairesR);
-        // Insertion en 2 temps : 
-        // 1- tout sauf le mot de passe
         $ret = RestoDAO::insert($resto);
 
-        if ($ret) {
+        if($ret) {
             $ajoutReussie = true;
         } else {
-            ajouterMessage("Inscription : l'utilisateur n'a pas pu être enregistré.");
+            ajouterMessage("Ajout : le resto n'a pas pu être ajouté.");
         }
     } else {
-        ajouterMessage("Inscription : renseigner tous les champs...");
+        ajouterMessage("Ajout : renseigner tous les champs...");
     }
 }
 
 // Construction de la vue
 if($ajoutReussie) {
-    $titre = "Ajout confirmée";
-    require_once "$racine/vue/entete.html.php";
-    require_once "$racine/vue/vueListeRestos.php";
-    require_once "$racine/vue/pied.html.php";
+    header('Location: ./?action=liste');
 } else {
     // Première demande ou bien erreurs dans le formulaire
     $titre = "Ajout pb";
