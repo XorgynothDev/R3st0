@@ -25,10 +25,17 @@ use modele\dao\UtilisateurDAO;
 <?php
 $idU = getIdULoggedOn();
 
+
+
 if($idU != 0) {
     $util = UtilisateurDAO::getOneById($idU);
 
     if($util->isAdministrator()) {
+        ?>
+        <br>
+        <a href="./?action=ajouterTC"><button class="deleteUtil">Ajouter</button></a>
+        <br>
+        <?php
         foreach($listeTC as $typeCuisine) {
             $libelleTC = $typeCuisine->getlibelleTC();
             ?>
