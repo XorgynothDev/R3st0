@@ -68,7 +68,7 @@ Mettre à jour mon pseudo :
     Choisir d'autres types de cuisine : <br />
     <ul id="tagFood">
     <?php 
-    for ($i = 0; $i < count($lesAutresTypesCuisine); $i++) { 
+    for ($i = 0; $i < count($lesAutresTypesCuisine); $i++) {
         $unTC = $lesAutresTypesCuisine[$i];
         ?>
         <input type="checkbox" name="addLstidTC[]" id="addType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >

@@ -4,6 +4,7 @@ namespace modele\dao;
 
 use modele\metier\Resto;
 use modele\metier\Utilisateur;
+use modele\dao\PhotoDAO;
 use PDO;
 use PDOException;
 use Exception;
@@ -200,10 +201,10 @@ class RestoDAO {
         return $lesObjets;
     }
 
-    public static function insert(Resto $resto): bool {
+    public static function insert(Resto $resto, array $listTC, string $photo): bool {
         $ok = false;
 
-        $restos = self::getAll();
+        $restos = RestoDAO::getAll();
         $id = $restos[count($restos) - 1]->getIdR() + 1;
 
         try {
@@ -222,6 +223,20 @@ class RestoDAO {
             $ok = $stmt->execute();
         } catch (PDOException $e) {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+        }
+
+        PhotoDAO::insert($photo, $id);
+
+        for($i = 0; $i < count($listTC); $i++) {
+            try {
+                $requete = "INSERT INTO proposer (idR, idTC) VALUES (:idR, :idTC)";
+                $stmt = Bdd::getConnexion()->prepare($requete);
+                $stmt->bindValue(':idR', $id, PDO::PARAM_INT);
+                $stmt->bindValue(':idTC', $listTC[$i], PDO::PARAM_INT);
+                $ok = $stmt->execute();
+            } catch (PDOException $e) {
+                throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+            }
         }
 
         return $ok;
