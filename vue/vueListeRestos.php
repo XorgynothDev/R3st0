@@ -83,6 +83,7 @@ foreach($listeRestos as $unResto) {
 
             if($util != null) {
                 if($util->isAdministrator()) { ?>
+                    <a href="./?action=updResto&idR=<?= $unResto->getIdR() ?>"><button class="deleteUtil">Modifier</button></a>
                     <a href="./?action=supprimerResto&idR=<?= $unResto->getIdR() ?>"><button class="deleteUtil">Supprimer</button></a>
                     <?php
                 }

@@ -242,6 +242,23 @@ class RestoDAO {
         return $ok;
     }
 
+    public static function update(Resto $resto, array $listTC, string $photo): bool {
+        $ok = false;
+        try {
+            $requete = "UPDATE utilisateur SET mailU = :mailU, pseudoU = :pseudoU WHERE idU = :idU";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+//        $mdpUCrypt = crypt($unUser->getMdpU(), "sel");
+            $stmt->bindValue(':mailU', $unUser->getMailU(), PDO::PARAM_STR);
+//        $stmt->bindValue(':mdpU', $mdpUCrypt, PDO::PARAM_STR);
+            $stmt->bindValue(':pseudoU', $unUser->getPseudoU(), PDO::PARAM_STR);
+            $stmt->bindValue(':idU', $unUser->getIdU(), PDO::PARAM_INT);
+            $ok = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::update : <br/>" . $e->getMessage());
+        }
+        return $ok;
+    }
+
     /**
      * Recherche de restaurants selon plusieurs critères (filtrage)
      * Tous les critères doivent être réunis (ET logique) sauf les types de cuisine, 1 au moins parmi tous (OU logique)

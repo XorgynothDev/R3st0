@@ -27,6 +27,7 @@ function controleurPrincipal(string $action) : string {
     $lesActions["ajouterResto"] = "ajouterResto.php";
     $lesActions["listeTC"] = "listeTC.php";
     $lesActions["ajouterTC"] = "ajouterTC.php";
+    $lesActions["updResto"] = "updResto.php";
     
     if (array_key_exists ( $action , $lesActions )){
         return $lesActions[$action];
