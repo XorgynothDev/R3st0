@@ -80,7 +80,7 @@ if (isLoggedOn()) {
     }
 
 // Si on a changé le mot de passe, il faut se reconnecter
-    if (!isLoggedOn()) {
+    if(!isLoggedOn()) {
         // Construction de la vue
         require_once "$racine/vue/entete.html.php";
         require_once "$racine/vue/vueAuthentification.php";

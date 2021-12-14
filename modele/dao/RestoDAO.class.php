@@ -201,7 +201,7 @@ class RestoDAO {
         return $lesObjets;
     }
 
-    public static function insert(Resto $resto, array $listTC, string $photo): bool {
+    public static function insert(Resto $resto, array $listTC/*, string $photo*/): bool {
         $ok = false;
 
         $restos = RestoDAO::getAll();
@@ -225,7 +225,7 @@ class RestoDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
         }
 
-        PhotoDAO::insert($photo, $id);
+        /*PhotoDAO::insert($photo, $id);
 
         for($i = 0; $i < count($listTC); $i++) {
             try {
@@ -237,7 +237,7 @@ class RestoDAO {
             } catch (PDOException $e) {
                 throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
             }
-        }
+        }*/
 
         return $ok;
     }

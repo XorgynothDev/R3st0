@@ -13,18 +13,38 @@ use modele\dao\TypeCuisineDAO;
 $lesAutresTypesCuisine = TypeCuisineDAO::getAll();
 ?>
 <h1>Ajouter un restaurant</h1>
+<br>
+<h3><font color="orange">* Obligatoire</font></h3>
+<br>
 <form action="./?action=ajouterResto" method="POST">
 
+    <p>Nom : <font color="orange">*</font></p>
     <input type="text" name="nomR" placeholder="Nom" /><br />
+
+    <p>Numéro de rue : <font color="orange">*</font></p>
     <input type="text" name="numAdr" placeholder="Numéro rue"  /><br />
+
+    <p>Vooie de la rue : <font color="orange">*</font></p>
     <input type="text" name="voieAdr" placeholder="Voie rue" /><br />
+
+    <p>Code postal : <font color="orange">*</font></p>
     <input type="text" name="cpR" placeholder="Code postal" /><br />
+
+    <p>Ville : <font color="orange">*</font></p>
     <input type="text" name="villeR" placeholder="Ville" /><br />
+
+    <p>Latitude :</p>
     <input type="text" name="latitudeDegR" placeholder="Latitude" /><br />
+
+    <p>Longitude :</p>
     <input type="text" name="longitudeDegR" placeholder="Longitude" /><br />
+
+    <p>Description : <font color="orange">*</font></p>
     <input type="text" name="descR" placeholder="Description" /><br />
+
+    <p>Horaire :</p>
     <input type="text" name="horairesR" placeholder="Horaire" /><br />
-    <input type="text" name="photoR" placeholder="Chemin photo" /><br />
+    <!--<input type="text" name="photoR" placeholder="Chemin photo" /><br />-->
     
     <br />
     <br />

@@ -5,7 +5,6 @@ use modele\dao\UtilisateurDAO;
 
 Bdd::connecter();
 
-
 // Récupération des données GET, POST, et SESSION
 if(!isset($_GET["idU"])) {
     // Pb : pas d'id d'utilisateur
@@ -19,20 +18,20 @@ if(!isset($_GET["idU"])) {
     if($idU != 0) {
         $util = UtilisateurDAO::getOneById($idU);
 
+        $response = "error";
+
         if($util->isAdministrator()) {
-            if(UtilisateurDAO::getOneById($_GET["idU"])->isAdministrator()) {
+            if(!UtilisateurDAO::getOneById($_GET["idU"])->isAdministrator()) {
                 UtilisateurDAO::deleteUtil(intval($_GET["idU"]));
-            } else {
-                echo "Impossible de supprimer un Administrateur !";
+                $response = "success";
             }
+
+            header('Location: ' . $_SERVER['HTTP_REFERER'] . "&response=" . $response);
         } else {
             echo "Vous n'êtes pas un administrateur !";
         }
     } else {
         echo "Vous devez être connecté !";
     }
-
-// redirection vers la page d'origine
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>

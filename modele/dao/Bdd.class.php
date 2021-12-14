@@ -17,7 +17,7 @@ class Bdd {
      * @var PDO Objet de type PDO, dépositaire de la connexion courante à la BDD
      */
     private static ?PDO $pdo=null;
-    private static $login = "r3sto";   // login utilisateur de la BDD
+    private static $login = "r3st0";   // login utilisateur de la BDD
     private static $mdp = "3dDg5tZXeCQFy06l";         // mdp  utilisateur de la BDD
     private static $bd = "r3st0";          // nom de la BDD
     private static $serveur = "ultimatex.co";  // nom de domaine du serveur de BDD

@@ -31,7 +31,14 @@ if (isLoggedOn()){
     // Données spécifiques à la page vueMonProfil
     $idU = getIdULoggedOn();
     $mailU = getMailULoggedOn();
-    $util = UtilisateurDAO::getOneById($idU);   
+    $util = UtilisateurDAO::getOneById($idU);
+
+    if($util->isAdministrator()) {
+        $menuBurger[] = Array("url"=>"./?action=listeUtilisateurs","label"=>"Liste des utilisateurs (Supprimer)");
+        $menuBurger[] = Array("url"=>"./?action=listeTC","label"=>"Liste type de cuisine (Ajouter, supprimer)");
+        $menuBurger[] = Array("url"=>"./?action=liste","label"=>"Liste des restaurants (Ajouter, supprimer, modifier)");
+    }
+
     $mesRestosAimes = $util->getLesRestosAimes();
     $mesTypeCuisinePreferes = $util->getLesTypesCuisinePreferes();
 

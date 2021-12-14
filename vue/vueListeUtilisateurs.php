@@ -26,6 +26,19 @@ use modele\dao\UtilisateurDAO;
     $idU = getIdULoggedOn();
 
     if($idU != 0) {
+        if(isset($_GET["response"])) {
+            switch($_GET["response"]) {
+                case "success":
+                    echo "Utilisateur supprimé avec succès !";
+                    break;
+                case "error":
+                    echo "Impossible de supprimer un utilisateur qui est administrateur !";
+                    break;
+            }
+
+            echo "<br>";
+        }
+
         $util = UtilisateurDAO::getOneById($idU);
 
         if($util->isAdministrator()) {

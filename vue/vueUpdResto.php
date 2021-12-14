@@ -11,7 +11,6 @@ use modele\dao\RestoDAO;
   ----------------------------------------------------------------------------------------  */
 /** @var string $msg  message de vérification du formulaire*/
 
-
 if(isset($_GET["idR"])) {
     $resto = RestoDAO::getOneById($_GET["idR"]);
     ?>

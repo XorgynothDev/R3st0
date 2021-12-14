@@ -22,14 +22,13 @@ if(!isset($_GET["idR"])) {
 
         if($util->isAdministrator()) {
             RestoDAO::supprimer($_GET["idR"]);
+
+            header('Location: ' . $_SERVER['HTTP_REFERER'] . "&response=success");
         } else {
             echo "Impossible de supprimer un Administrateur !";
         }
     } else {
         echo "Vous devez être connecté !";
     }
-
-// redirection vers la page d'origine
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 ?>

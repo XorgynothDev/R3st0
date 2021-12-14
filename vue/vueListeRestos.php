@@ -33,6 +33,13 @@ if($idU != 0) {
     $util = UtilisateurDAO::getOneById($idU);
 
     if($util->isAdministrator()) {
+        if(isset($_GET["response"])) {
+            if($_GET["response"] == "success") {
+                echo "Restaurant supprimé !";
+            }
+
+            echo "<br>";
+        }
         ?>
         <br>
         <a href="./?action=ajouterResto"><button class="deleteUtil">Ajouter</button></a>

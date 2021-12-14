@@ -23,9 +23,9 @@ $ajoutReussie = false;   // booléen indiquant s'il faut afficher le formulaire 
 $titre = "";                    // titre de la vue
 
 // Récupération des données GET, POST, et SESSION
-if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) && isset($_POST["cpR"]) && isset($_POST["villeR"]) && isset($_POST["latitudeDegR"]) && isset($_POST["longitudeDegR"]) && isset($_POST["descR"]) && isset($_POST["horairesR"]) && isset($_POST["photoR"]) && isset($_POST["addLstidTC"])) {
+if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) && isset($_POST["cpR"]) && isset($_POST["villeR"]) && isset($_POST["latitudeDegR"]) && isset($_POST["longitudeDegR"]) && isset($_POST["descR"]) && isset($_POST["horairesR"]) && isset($_POST["addLstidTC"])) {
     // Si la saisie a été effectuée
-    if ($_POST["nomR"] != "" && $_POST["numAdr"] != "" && $_POST["voieAdr"] != "" && $_POST["cpR"] != "" && $_POST["villeR"] != "" && $_POST["descR"] != "" && $_POST["horairesR"] != "" && $_POST["photoR"] != "") {
+    if ($_POST["nomR"] != "" && $_POST["numAdr"] != "" && $_POST["voieAdr"] != "" && $_POST["cpR"] != "" && $_POST["villeR"] != "" && $_POST["descR"]/* != "" && $_POST["horairesR"] != "" && $_POST["photoR"] != ""*/) {
         // Si tous les champs sont renseignés
         $nomR = $_POST["nomR"];
         $numAdr = $_POST["numAdr"];
@@ -33,11 +33,16 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
         $cpR = $_POST["cpR"];
         $villeR = $_POST["villeR"];
         $descR = $_POST["descR"];
-        $horairesR = $_POST["horairesR"];
+        $horairesR = NULL;
         $latitudeDegR = NULL;
         $longitudeDegR = NULL;
-        $photoR = $_POST["photoR"];
+        //$photoR = $_POST["photoR"];
         $listTC = $_POST["addLstidTC"];
+        $listTC = $_POST["addLstidTC"];
+
+        if($_POST["horairesR"] != "") {
+            $horairesR = $_POST["horairesR"];
+        }
 
         if($_POST["latitudeDegR"] != "") {
             $latitudeDegR = $_POST["latitudeDegR"];
@@ -49,7 +54,7 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
 
         // Enregistrement des donnees dans la base de données
         $resto = new Resto(0, $nomR, $numAdr, $voieAdr, $cpR, $villeR, $latitudeDegR, $longitudeDegR, $descR, $horairesR);
-        $ret = RestoDAO::insert($resto, $listTC, $photoR);
+        $ret = RestoDAO::insert($resto, $listTC/*, $photoR*/);
 
         if($ret) {
             $ajoutReussie = true;

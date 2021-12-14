@@ -29,7 +29,18 @@ if($idU != 0) {
     $util = UtilisateurDAO::getOneById($idU);
 
     if($util->isAdministrator()) {
-        foreach($listeTC as $typeCuisine) {
+        if(isset($_GET["response"])) {
+            if($_GET["response"] == "success") {
+                echo "Type de cuisine supprimé avec succès !";
+            }
+
+            echo "<br>";
+        }
+        ?>
+        <br>
+        <a href="./?action=ajouterTC"><button class="deleteUtil">Ajouter</button></a>
+        <br>
+        <?php foreach($listeTC as $typeCuisine) {
             $libelleTC = $typeCuisine->getlibelleTC();
             ?>
 

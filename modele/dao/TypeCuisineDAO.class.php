@@ -84,6 +84,26 @@ class TypeCuisineDAO {
         return $lesObjets;
     }
 
+    public static function insert(TypeCuisine $tc): bool {
+        $ok = false;
+
+        $TC = self::getAll();
+        $id = $TC[count($TC) - 1]->getIdTC() + 1;
+
+        try {
+            $requete = "INSERT INTO typeCuisine (idTC, libelleTC) VALUES (:id, :libelleTC)";
+            $stmt = Bdd::getConnexion()->prepare($requete);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':libelleTC', $tc->getlibelleTC(), PDO::PARAM_STR);
+
+            $ok = $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+        }
+
+        return $ok;
+    }
+
     /**
      * Liste des types de cuisine que NE PREFERE PAS un utilisateur
      * @param int $idU identifiant de l'utilisateur

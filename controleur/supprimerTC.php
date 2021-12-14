@@ -22,15 +22,13 @@ if(!isset($_GET["idTC"])) {
 
         if($util->isAdministrator()) {
             TypeCuisineDAO::deleteTC(intval($_GET["idTC"]));
+            header('Location: ' . $_SERVER['HTTP_REFERER'] . "&response=success");
         } else {
             echo "Impossible de supprimer un Type de cuisine !";
         }
     } else {
         echo "Vous devez être connecté !";
     }
-
-// redirection vers la page d'origine
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
 
 ?>
