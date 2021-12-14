@@ -21,10 +21,11 @@ if(isset($_GET["idR"])) {
     <br>
     <h3><font color="orange">* Obligatoire</font></h3>
     <br>
-    <form action="./?action=ajouterResto" method="POST">
+
+    <form action="./?action=updResto&idR=<?= $resto->getIdR() ?>" method="POST">
 
         <p>Nom : <font color="orange">*</font></p>
-        <?php echo '<input type="text" name="nomR" value="' . $resto->getNomR() . '" />'?>
+        <input type="text" name="nomR" value="<?= $resto->getNomR() ?>" />
 
         <p>Numéro de rue : <font color="orange">*</font></p>
         <?php echo '<input type="text" name="numAdr" value="' . $resto->getNumAdr() . '" />'?>
@@ -86,7 +87,7 @@ if(isset($_GET["idR"])) {
             for ($i = 0; $i < count($lesTypesCuisine); $i++) {
                 $unTC = $lesTypesCuisine[$i];
                 ?>
-                <input type="checkbox" name="delLstidTC[]" id="delType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
+                <input type="checkbox" name="delListTC" id="delType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
                 <label for="delType<?= $i ?>"><li class="tag"><span class="tag">#</span><?= $unTC->getLibelleTC() ?></li></label><br />
             <?php } ?>
         </ul>
@@ -104,7 +105,7 @@ if(isset($_GET["idR"])) {
             for ($i = 0; $i < count($lesAutresTypesCuisine); $i++) {
                 $unTC = $lesAutresTypesCuisine[$i];
                 ?>
-                <input type="checkbox" name="addLstidTC[]" id="addType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
+                <input type="checkbox" name="addListTC" id="addType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
                 <label for="addType<?= $i ?>"><li class="tag"><span class="tag">#</span><?= $unTC->getLibelleTC() ?></li></label><br />
             <?php } ?>
         </ul>

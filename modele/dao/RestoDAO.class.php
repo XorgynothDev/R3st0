@@ -242,12 +242,13 @@ class RestoDAO {
         return $ok;
     }
 
-    public static function update(Resto $resto, array $listTC/*, string $photo*/): bool {
+    public static function update(Resto $resto, array $addLstidTC, array $delLstidTC/*, string $photo*/): bool {
         $ok = false;
         try {
-            $requete = "UPDATE resto SET mailU = :mailU, pseudoU = :pseudoU WHERE idU = :idU";
+            $requete = "UPDATE resto SET nomR = :nomR, numAdrR = :numAdrR, voieAdrR = :voieAdrR, cpR = :cpR, villeR = :villeR, latitudeDegR = :latitudeDegR, 
+                        longitudeDegR = :longitudeDegR, descR = :descR, horairesR = :horairesR WHERE idR = :idR";
             $stmt = Bdd::getConnexion()->prepare($requete);
-            $stmt->bindValue(':id', $resto->getIdR(), PDO::PARAM_INT);
+            $stmt->bindValue(':idR', $resto->getIdR(), PDO::PARAM_INT);
             $stmt->bindValue(':nomR', $resto->getNomR(), PDO::PARAM_STR);
             $stmt->bindValue(':numAdrR', $resto->getNumAdr(), PDO::PARAM_STR);
             $stmt->bindValue(':voieAdrR', $resto->getVoieAdr(), PDO::PARAM_STR);
@@ -262,15 +263,27 @@ class RestoDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::update : <br/>" . $e->getMessage());
         }
 
-        for($i = 0; $i < count($listTC); $i++) {
+        for($i = 0; $i < count($addLstidTC); $i++) {
             try {
                 $requete = "INSERT INTO proposer (idR, idTC) VALUES (:idR, :idTC)";
                 $stmt = Bdd::getConnexion()->prepare($requete);
-                $stmt->bindValue(':idR', $id, PDO::PARAM_INT);
-                $stmt->bindValue(':idTC', $listTC[$i], PDO::PARAM_INT);
+                $stmt->bindValue(':idR', $resto->getIdR(), PDO::PARAM_INT);
+                $stmt->bindValue(':idTC', $addLstidTC[$i], PDO::PARAM_INT);
                 $ok = $stmt->execute();
             } catch (PDOException $e) {
                 throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+            }
+        }
+
+        for($i = 0; $i < count($delLstidTC); $i++) {
+            try {
+                $requete = "DELETE FROM preferer WHERE idTC=:idTC and idR=:idR";
+                $stmt = Bdd::getConnexion()->prepare($requete);
+                $stmt->bindValue(':idR', $resto->getIdR(), PDO::PARAM_INT);
+                $stmt->bindValue(':idTC', $delLstidTC[$i], PDO::PARAM_INT);
+                $ok = $stmt->execute();
+            } catch (PDOException $e) {
+                throw new Exception("Erreur dans la méthode " . get_called_class() . "::delete : <br/>" . $e->getMessage());
             }
         }
         return $ok;

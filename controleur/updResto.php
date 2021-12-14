@@ -23,7 +23,7 @@ $ajoutReussie = false;   // booléen indiquant s'il faut afficher le formulaire 
 $titre = "";                    // titre de la vue
 
 // Récupération des données GET, POST, et SESSION
-if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) && isset($_POST["cpR"]) && isset($_POST["villeR"]) && isset($_POST["latitudeDegR"]) && isset($_POST["longitudeDegR"]) && isset($_POST["descR"]) && isset($_POST["horairesR"]) && isset($_POST["addLstidTC"])) {
+if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) && isset($_POST["cpR"]) && isset($_POST["villeR"]) && isset($_POST["latitudeDegR"]) && isset($_POST["longitudeDegR"]) && isset($_POST["descR"]) && isset($_POST["horairesR"])) {
     // Si la saisie a été effectuée
     if ($_POST["nomR"] != "" && $_POST["numAdr"] != "" && $_POST["voieAdr"] != "" && $_POST["cpR"] != "" && $_POST["villeR"] != "" && $_POST["descR"]/* != "" && $_POST["horairesR"] != "" && $_POST["photoR"] != ""*/) {
         // Si tous les champs sont renseignés
@@ -37,7 +37,8 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
         $latitudeDegR = NULL;
         $longitudeDegR = NULL;
         //$photoR = $_POST["photoR"];
-        $listTC = $_POST["addLstidTC"];
+        $addLstidTC = $_POST["addListTC"];
+        $delLstidTC = $_POST["delListTC"];
 
         if($_POST["horairesR"] != "") {
             $horairesR = $_POST["horairesR"];
@@ -51,34 +52,16 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
             $longitudeDegR = $_POST["longitudeDegR"];
         }
 
-        // Types de cuisine à ajouter à la liste des types de cuisine préférés
-        if (isset($_POST["addLstidTC"])) {
-            $addLstidTC = $_POST["addLstidTC"];
-
-            for ($i = 0; $i < count($addLstidTC); $i++) {
-                PrefererDAO::insert($idU, $addLstidTC[$i]);
-            }
-        }
-
-        // Types de cuisine à supprimer de liste des types de cuisine préférés
-        if (isset($_POST["delLstidTC"])) {
-            $delLstidTC = $_POST["delLstidTC"];
-            for ($i = 0; $i < count($delLstidTC); $i++) {
-                PrefererDAO::delete($idU, $delLstidTC[$i]);
-            }
-        }
-
-        // Enregistrement des donnees dans la base de données
-        $resto = new Resto(0, $nomR, $numAdr, $voieAdr, $cpR, $villeR, $latitudeDegR, $longitudeDegR, $descR, $horairesR);
-        $ret = RestoDAO::insert($resto, $listTC/*, $photoR*/);
+        $resto = new Resto($_GET["idR"], $nomR, $numAdr, $voieAdr, $cpR, $villeR, $latitudeDegR, $longitudeDegR, $descR, $horairesR);
+        $ret = RestoDAO::update($resto, $addLstidTC, $delLstidTC);
 
         if($ret) {
             $ajoutReussie = true;
         } else {
-            ajouterMessage("Ajout : le resto n'a pas pu être mis à jour !");
+            ajouterMessage("Le resto n'a pas pu être mis à jour !");
         }
     } else {
-        ajouterMessage("Ajout : renseigner tous les champs...");
+        ajouterMessage("Renseigner tous les champs...");
     }
 }
 
