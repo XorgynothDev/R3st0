@@ -225,7 +225,7 @@ class RestoDAO {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
         }
 
-        /*PhotoDAO::insert($photo, $id);
+        //PhotoDAO::insert($photo, $id);
 
         for($i = 0; $i < count($listTC); $i++) {
             try {
@@ -237,24 +237,41 @@ class RestoDAO {
             } catch (PDOException $e) {
                 throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
             }
-        }*/
+        }
 
         return $ok;
     }
 
-    public static function update(Resto $resto, array $listTC, string $photo): bool {
+    public static function update(Resto $resto, array $listTC/*, string $photo*/): bool {
         $ok = false;
         try {
-            $requete = "UPDATE utilisateur SET mailU = :mailU, pseudoU = :pseudoU WHERE idU = :idU";
+            $requete = "UPDATE resto SET mailU = :mailU, pseudoU = :pseudoU WHERE idU = :idU";
             $stmt = Bdd::getConnexion()->prepare($requete);
-//        $mdpUCrypt = crypt($unUser->getMdpU(), "sel");
-            $stmt->bindValue(':mailU', $unUser->getMailU(), PDO::PARAM_STR);
-//        $stmt->bindValue(':mdpU', $mdpUCrypt, PDO::PARAM_STR);
-            $stmt->bindValue(':pseudoU', $unUser->getPseudoU(), PDO::PARAM_STR);
-            $stmt->bindValue(':idU', $unUser->getIdU(), PDO::PARAM_INT);
+            $stmt->bindValue(':id', $resto->getIdR(), PDO::PARAM_INT);
+            $stmt->bindValue(':nomR', $resto->getNomR(), PDO::PARAM_STR);
+            $stmt->bindValue(':numAdrR', $resto->getNumAdr(), PDO::PARAM_STR);
+            $stmt->bindValue(':voieAdrR', $resto->getVoieAdr(), PDO::PARAM_STR);
+            $stmt->bindValue(':cpR', $resto->getCpR(), PDO::PARAM_STR);
+            $stmt->bindValue(':villeR', $resto->getVilleR(), PDO::PARAM_STR);
+            $stmt->bindValue(':latitudeDegR', $resto->getLatitudeDegR(), PDO::PARAM_INT);
+            $stmt->bindValue(':longitudeDegR', $resto->getLongitudeDegR(), PDO::PARAM_INT);
+            $stmt->bindValue(':descR', $resto->getDescR(), PDO::PARAM_STR);
+            $stmt->bindValue(':horairesR', $resto->getHorairesR(), PDO::PARAM_STR);
             $ok = $stmt->execute();
         } catch (PDOException $e) {
             throw new Exception("Erreur dans la méthode " . get_called_class() . "::update : <br/>" . $e->getMessage());
+        }
+
+        for($i = 0; $i < count($listTC); $i++) {
+            try {
+                $requete = "INSERT INTO proposer (idR, idTC) VALUES (:idR, :idTC)";
+                $stmt = Bdd::getConnexion()->prepare($requete);
+                $stmt->bindValue(':idR', $id, PDO::PARAM_INT);
+                $stmt->bindValue(':idTC', $listTC[$i], PDO::PARAM_INT);
+                $ok = $stmt->execute();
+            } catch (PDOException $e) {
+                throw new Exception("Erreur dans la méthode " . get_called_class() . "::insert : <br/>" . $e->getMessage());
+            }
         }
         return $ok;
     }

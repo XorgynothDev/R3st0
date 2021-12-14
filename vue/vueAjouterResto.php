@@ -28,7 +28,7 @@ $lesAutresTypesCuisine = TypeCuisineDAO::getAll();
     <input type="text" name="voieAdr" placeholder="Voie rue" /><br />
 
     <p>Code postal : <font color="orange">*</font></p>
-    <input type="text" name="cpR" placeholder="Code postal" /><br />
+    <input type="text" maxlength="5" name="cpR" placeholder="Code postal" /><br />
 
     <p>Ville : <font color="orange">*</font></p>
     <input type="text" name="villeR" placeholder="Ville" /><br />
@@ -43,7 +43,30 @@ $lesAutresTypesCuisine = TypeCuisineDAO::getAll();
     <input type="text" name="descR" placeholder="Description" /><br />
 
     <p>Horaire :</p>
-    <input type="text" name="horairesR" placeholder="Horaire" /><br />
+    <textarea name="horairesR" rows="30" cols="50" value="test"><table>
+    <thead>
+        <tr>
+            <th>Ouverture</th><th>Semaine</th>	<th>Week-end</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="label">Midi</td>
+            <td class="cell">de 11h45 à 14h30</td>
+            <td class="cell">de 11h45 à 15h00</td>
+        </tr>
+        <tr>
+            <td class="label">Soir</td>
+            <td class="cell">de 18h45 à 22h30</td>
+            <td class="cell">de 18h45 à 1h</td>
+        </tr>
+        <tr>
+            <td class="label">À emporter</td>
+            <td class="cell">de 11h30 à 23h</td>
+            <td class="cell">de 11h30 à 2h</td>
+        </tr>
+    </tbody>
+</table></textarea>
     <!--<input type="text" name="photoR" placeholder="Chemin photo" /><br />-->
     
     <br />

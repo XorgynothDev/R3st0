@@ -38,7 +38,6 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
         $longitudeDegR = NULL;
         //$photoR = $_POST["photoR"];
         $listTC = $_POST["addLstidTC"];
-        $listTC = $_POST["addLstidTC"];
 
         if($_POST["horairesR"] != "") {
             $horairesR = $_POST["horairesR"];
@@ -52,6 +51,23 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
             $longitudeDegR = $_POST["longitudeDegR"];
         }
 
+        // Types de cuisine à ajouter à la liste des types de cuisine préférés
+        if (isset($_POST["addLstidTC"])) {
+            $addLstidTC = $_POST["addLstidTC"];
+
+            for ($i = 0; $i < count($addLstidTC); $i++) {
+                PrefererDAO::insert($idU, $addLstidTC[$i]);
+            }
+        }
+
+        // Types de cuisine à supprimer de liste des types de cuisine préférés
+        if (isset($_POST["delLstidTC"])) {
+            $delLstidTC = $_POST["delLstidTC"];
+            for ($i = 0; $i < count($delLstidTC); $i++) {
+                PrefererDAO::delete($idU, $delLstidTC[$i]);
+            }
+        }
+
         // Enregistrement des donnees dans la base de données
         $resto = new Resto(0, $nomR, $numAdr, $voieAdr, $cpR, $villeR, $latitudeDegR, $longitudeDegR, $descR, $horairesR);
         $ret = RestoDAO::insert($resto, $listTC/*, $photoR*/);
@@ -59,7 +75,7 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
         if($ret) {
             $ajoutReussie = true;
         } else {
-            ajouterMessage("Ajout : le resto n'a pas pu être ajouté.");
+            ajouterMessage("Ajout : le resto n'a pas pu être mis à jour !");
         }
     } else {
         ajouterMessage("Ajout : renseigner tous les champs...");
