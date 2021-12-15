@@ -277,7 +277,7 @@ class RestoDAO {
 
         for($i = 0; $i < count($delLstidTC); $i++) {
             try {
-                $requete = "DELETE FROM preferer WHERE idTC=:idTC and idR=:idR";
+                $requete = "DELETE FROM proposer WHERE idTC=:idTC and idR=:idR";
                 $stmt = Bdd::getConnexion()->prepare($requete);
                 $stmt->bindValue(':idR', $resto->getIdR(), PDO::PARAM_INT);
                 $stmt->bindValue(':idTC', $delLstidTC[$i], PDO::PARAM_INT);

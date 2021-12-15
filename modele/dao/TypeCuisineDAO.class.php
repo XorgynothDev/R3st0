@@ -133,7 +133,7 @@ class TypeCuisineDAO {
         return $lesObjets;
     }
 
-    public static function getAllNonPreferesByIdR(int $idR): array {
+    public static function getAllNonProposeByIdR(int $idR): array {
         $lesObjets = array();
         try {
             $requete = "select * from typeCuisine where idTC 

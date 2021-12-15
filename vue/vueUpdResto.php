@@ -15,7 +15,7 @@ use modele\dao\TypeCuisineDAO;
 if(isset($_GET["idR"])) {
     $resto = RestoDAO::getOneById($_GET["idR"]);
     $lesTypesCuisine = $resto->getLesTypesCuisineProposes();
-    $lesAutresTypesCuisine = TypeCuisineDAO::getAllNonPreferesByIdR($resto->getIdR());
+    $lesAutresTypesCuisine = TypeCuisineDAO::getAllNonProposeByIdR($resto->getIdR());
     ?>
     <h1>Modifier un restaurant</h1>
     <br>
@@ -49,30 +49,32 @@ if(isset($_GET["idR"])) {
         <?php echo '<input type="text" name="descR" value="' . $resto->getDescR() . '" />'?>
 
         <p>Horaire :</p>
-        <?php echo '    <textarea name="horairesR" rows="30" cols="50" value="test"><table>
-    <thead>
-        <tr>
-            <th>Ouverture</th><th>Semaine</th>	<th>Week-end</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td class="label">Midi</td>
-            <td class="cell">de 11h45 à 14h30</td>
-            <td class="cell">de 11h45 à 15h00</td>
-        </tr>
-        <tr>
-            <td class="label">Soir</td>
-            <td class="cell">de 18h45 à 22h30</td>
-            <td class="cell">de 18h45 à 1h</td>
-        </tr>
-        <tr>
-            <td class="label">À emporter</td>
-            <td class="cell">de 11h30 à 23h</td>
-            <td class="cell">de 11h30 à 2h</td>
-        </tr>
-    </tbody>
-</table></textarea>'?>
+        <?php echo ' <textarea name="horairesR" rows="30" cols="50" value="test">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ouverture</th><th>Semaine</th>	<th>Week-end</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="label">Midi</td>
+                        <td class="cell">de 11h45 à 14h30</td>
+                        <td class="cell">de 11h45 à 15h00</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Soir</td>
+                        <td class="cell">de 18h45 à 22h30</td>
+                        <td class="cell">de 18h45 à 1h</td>
+                    </tr>
+                    <tr>
+                        <td class="label">À emporter</td>
+                        <td class="cell">de 11h30 à 23h</td>
+                        <td class="cell">de 11h30 à 2h</td>
+                    </tr>
+                </tbody>
+            </table>
+        </textarea>'?>
         <!--<input type="text" name="photoR" placeholder="Chemin photo" /><br />-->
 
         <br>
@@ -87,7 +89,7 @@ if(isset($_GET["idR"])) {
             for ($i = 0; $i < count($lesTypesCuisine); $i++) {
                 $unTC = $lesTypesCuisine[$i];
                 ?>
-                <input type="checkbox" name="delListTC" id="delType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
+                <input type="checkbox" name="delLstidTC[]" id="delType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
                 <label for="delType<?= $i ?>"><li class="tag"><span class="tag">#</span><?= $unTC->getLibelleTC() ?></li></label><br />
             <?php } ?>
         </ul>
@@ -105,7 +107,7 @@ if(isset($_GET["idR"])) {
             for ($i = 0; $i < count($lesAutresTypesCuisine); $i++) {
                 $unTC = $lesAutresTypesCuisine[$i];
                 ?>
-                <input type="checkbox" name="addListTC" id="addType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
+                <input type="checkbox" name="addLstidTC[]" id="addType<?= $i ?>" value="<?= $unTC->getIdTC() ?>" >
                 <label for="addType<?= $i ?>"><li class="tag"><span class="tag">#</span><?= $unTC->getLibelleTC() ?></li></label><br />
             <?php } ?>
         </ul>

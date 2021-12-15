@@ -37,8 +37,16 @@ if(isset($_POST["nomR"]) && isset($_POST["numAdr"]) && isset($_POST["voieAdr"]) 
         $latitudeDegR = NULL;
         $longitudeDegR = NULL;
         //$photoR = $_POST["photoR"];
-        $addLstidTC = $_POST["addListTC"];
-        $delLstidTC = $_POST["delListTC"];
+        $addLstidTC = array();
+        $delLstidTC = array();
+
+        if(isset($_POST["addLstidTC"])) {
+            $addLstidTC = $_POST["addLstidTC"];
+        }
+
+        if(isset($_POST["delLstidTC"])) {
+            $delLstidTC = $_POST["delLstidTC"];
+        }
 
         if($_POST["horairesR"] != "") {
             $horairesR = $_POST["horairesR"];
